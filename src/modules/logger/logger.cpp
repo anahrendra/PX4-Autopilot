@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- *   Copyright (c) 2016, 2021 PX4 Development Team. All rights reserved.
+ *   Copyright (c) 2016-2022 PX4 Development Team. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -578,6 +578,11 @@ void Logger::run()
 
 	uORB::Subscription parameter_update_sub(ORB_ID(parameter_update));
 
+	if (!_writer.init()) {
+		PX4_ERR("writer init failed");
+		return;
+	}
+
 	if (!initialize_topics()) {
 		return;
 	}
@@ -618,12 +623,6 @@ void Logger::run()
 			PX4_ERR("failed to alloc message buffer");
 			return;
 		}
-	}
-
-
-	if (!_writer.init()) {
-		PX4_ERR("writer init failed");
-		return;
 	}
 
 	/* debug stats */

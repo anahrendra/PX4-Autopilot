@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- *   Copyright (c) 2019, 2021 PX4 Development Team. All rights reserved.
+ *   Copyright (c) 2019-2022 PX4 Development Team. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -440,7 +440,7 @@ bool LoggedTopics::add_topic(const char *name, uint16_t interval_ms, uint8_t ins
 				if (_subscriptions.sub[j].id == static_cast<ORB_ID>(topics[i]->o_id) &&
 				    _subscriptions.sub[j].instance == instance) {
 
-					PX4_DEBUG("logging topic %s(%" PRUu8 "), interval: %" PRUu16 ", already added, only setting interval",
+					PX4_DEBUG("logging topic %s(%" PRIu8 "), interval: %" PRIu16 ", already added, only setting interval",
 						  topics[i]->o_name, instance, interval_ms);
 
 					_subscriptions.sub[j].interval_ms = interval_ms;
@@ -452,7 +452,11 @@ bool LoggedTopics::add_topic(const char *name, uint16_t interval_ms, uint8_t ins
 
 			if (!already_added) {
 				success = add_topic(topics[i], interval_ms, instance, optional);
-				PX4_DEBUG("logging topic: %s(%" PRUu8 "), interval: %" PRUu16, topics[i]->o_name, instance, interval_ms);
+
+				if (success) {
+					PX4_DEBUG("logging topic: %s(%" PRIu8 "), interval: %" PRIu16, topics[i]->o_name, instance, interval_ms);
+				}
+
 				break;
 			}
 		}

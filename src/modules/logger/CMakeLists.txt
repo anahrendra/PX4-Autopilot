@@ -1,6 +1,6 @@
 ############################################################################
 #
-#   Copyright (c) 2016 PX4 Development Team. All rights reserved.
+#   Copyright (c) 2016-2022 PX4 Development Team. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -34,7 +34,7 @@
 px4_add_module(
 	MODULE modules__logger
 	MAIN logger
-	PRIORITY "SCHED_PRIORITY_MAX-30"
+	PRIORITY "SCHED_PRIORITY_MAX-50"
 	COMPILE_FLAGS
 		${MAX_CUSTOM_OPT_LEVEL}
 		-Wno-cast-align # TODO: fix and enable
